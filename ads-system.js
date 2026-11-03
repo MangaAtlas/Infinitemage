@@ -1,15 +1,10 @@
-/* MangaAtlas Ads System — one page-level Social Bar and isolated banner placements. */
-(async function(){'use strict';
-if(window.__mangaAtlasAdsSystemLoaded)return;window.__mangaAtlasAdsSystemLoaded=true;
-if(location.pathname.indexOf('/admin')===0)return;
-var cfg;try{var r=await fetch('/data/ads-config.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)return;cfg=await r.json()}catch(e){return}
-var sections=Array.isArray(cfg&&cfg.sections)?cfg.sections.filter(function(s){return s&&s.enabled&&String(s.code||'').trim()}):[];if(!sections.length)return;
-function root(){return document.querySelector('.pages')||document.querySelector('main')||document.querySelector('article')||document.body}
-function exists(id){return document.querySelector('[data-ma-ad-section="'+CSS.escape(String(id))+'"]')}
-function social(code){if(window.__mangaAtlasSocialBarInjected||document.querySelector('script[data-ma-social-bar]'))return;var parsed=new DOMParser().parseFromString(String(code||''),'text/html');var srcs=Array.prototype.map.call(parsed.querySelectorAll('script[src]'),function(s){return s.getAttribute('src')}).filter(function(src){return /bauval\.org\/21\/910085a44f873ee57a7c5593512e3062/.test(src)});if(!srcs.length)return;window.__mangaAtlasSocialBarInjected=true;var s=document.createElement('script');s.src=srcs[0];s.async=true;s.setAttribute('data-cfasync','false');s.setAttribute('data-ma-social-bar','true');document.head.appendChild(s)}
-function executeIsolated(code,id){var box=document.createElement('div');box.className='manga-atlas-ad-slot';box.dataset.maAdSection=id;box.style.cssText='width:100%;min-height:90px;margin:20px auto;display:flex;justify-content:center;align-items:center;clear:both;overflow:visible;position:relative;z-index:1;';var frame=document.createElement('iframe');frame.title='Advertisement '+id;frame.setAttribute('scrolling','no');frame.style.cssText='width:100%;max-width:100%;min-height:90px;height:300px;border:0;display:block;background:transparent;';frame.srcdoc='<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;padding:0;text-align:center;overflow:hidden">'+String(code||'')+'</body></html>';box.appendChild(frame);return box}
-function place(s){var id=String(s.id||''),code=String(s.code||'');if(!id)return true;if(/bauval\.org\/21\/910085a44f873ee57a7c5593512e3062/.test(code)){social(code);code=code.replace(/<script\b[^>]*src=["']https?:\/\/bauval\.org\/21\/910085a44f873ee57a7c5593512e3062["'][^>]*>\s*<\/script>/ig,'').trim();if(!code)return true}if(exists(id))return true;var r=root();if(!r)return false;var p=String(s.placement||'start').toLowerCase(),box;if(p==='between'){var pages=document.querySelector('.pages');if(!pages)return false;var imgs=Array.prototype.slice.call(pages.querySelectorAll('img.page'));var n=parseInt(s.afterImage!=null?s.afterImage:s.between,10);if(!Number.isFinite(n)||n<1)n=5;if(imgs.length<n)return false;box=executeIsolated(code,id);pages.insertBefore(box,imgs[n-1].nextSibling);return true}box=executeIsolated(code,id);if(p==='end')r.parentNode.insertBefore(box,r.nextSibling);else r.parentNode.insertBefore(box,r);return true}
-function install(){sections.forEach(place)}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
-var observer=new MutationObserver(install);observer.observe(document.body,{childList:true,subtree:true});var tries=0,timer=setInterval(function(){install();if(++tries>=50)clearInterval(timer)},300)
+/* Infinite Mage — temporary ad shutdown.
+   This repository will use a different ad provider later.
+   Keep the existing ad configuration and integration code, but do not load
+   or execute any current ad placements until the new ad setup is installed. */
+(function () {
+  'use strict';
+  window.__mangaAtlasAdsSystemLoaded = true;
+  window.__mangaAtlasAdsDisabled = true;
+  return;
 })();
