@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "mangas": [
+    {
+      "id": "infinite-mage",
+      "title": "Infinite Mage",
+      "slug": "infinite-mage",
+      "native_title": "인피니트 마법사",
+      "country": "KR",
+      "language": "en",
+      "created_at": "2026-11-03T00:00:00.000Z",
+      "updated_at": "2026-11-03T00:00:00.000Z"
+    }
+  ],
+  "chapters": []
+}
