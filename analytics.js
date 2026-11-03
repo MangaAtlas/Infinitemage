@@ -62,15 +62,7 @@
     chapterEventSent = true;
   }
 
-  function loadAdsSystem() {
-    if (location.pathname.indexOf('/admin') === 0) return;
-    if (document.querySelector('script[data-manga-atlas-ads]')) return;
-    var s = document.createElement('script');
-    s.src = "/Infinitemage/ads-system.js?v=32";
-    s.async = false;
-    s.setAttribute('data-manga-atlas-ads', 'true');
-    document.head.appendChild(s);
-  }
+  function loadAdsSystem() { return; }
 
   function init() {
     loadAdsSystem();
